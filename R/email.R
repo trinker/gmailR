@@ -3,6 +3,7 @@ function(to, password, subject="R message", message="EOM", from=NULL,
     attachment=NULL, server="smtp.gmail.com:587", username=NULL, 
     confirmBeforeSend=FALSE, clear.username = FALSE){
     data(UNAME)
+    cells <- sapply(strsplit(to, "@"), function(x) x[2]) %in% cell.ext[, 2]
     loc <- paste0(find.package("gmailR"), "/data")
     if ((is.null(username) & is.na(UNAME) & !exists(".UNAME", 
         envir = .GlobalEnv)) | clear.username) {
@@ -28,13 +29,16 @@ function(to, password, subject="R message", message="EOM", from=NULL,
         length(unlist(strsplit(attachment, "/", fixed=TRUE))) == 1)) {
         attachment <- paste0(getwd(), "/", attachment)
     }
-    lapply(to,
-        function (x){
-            email.helper(to=list(x), 
+    atts <- rep(attachment, length(to))
+    atts <- lapply(atts, c)
+    atts[cells] <- FALSE
+    lapply(seq_along(to),
+        function (i){
+            email.helper(to=list(to(i)), 
                 from = list(from),
                 subject = subject,
                 message = message, 
-                attachment = attachment,
+                attachment = atts[[i]],
                 username = username, 
                 password = password, 
                 server = server, 
