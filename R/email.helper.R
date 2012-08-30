@@ -2,7 +2,7 @@ email.helper <-
 function(to, from, subject, username, password, server, message, attachment, 
   confirmBeforeSend){ 
   if (!is.null(attachment)) {
-    if (!attachment) attachment <- NULL
+    if (attachment == FALSE) attachment <- NULL
   }
   if (!is.list(to) | !is.list(from)) stop("'to' and 'from' must be lists") 
   if (length(from) > 1) stop("'from' must have length 1") 
