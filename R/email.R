@@ -34,7 +34,7 @@ function(to, password, subject="R message", message="EOM", from=NULL,
     atts[cells] <- FALSE
     lapply(seq_along(to),
         function (i){
-            email.helper(to=list(to(i)), 
+            email.helper(to=list(to[i]), 
                 from = list(from),
                 subject = subject,
                 message = message, 
