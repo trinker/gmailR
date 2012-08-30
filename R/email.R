@@ -1,6 +1,6 @@
 email <-
-function(to, subject="R message", message="EOM", attachment=NULL,  
-    server="smtp.gmail.com:587", from=FROM, username=UNAME, password=PWORD, 
+function(to, password, subject="R message", message="EOM", attachment=NULL,  
+    server="smtp.gmail.com:587", from=FROM, username=UNAME, 
     confirmBeforeSend=FALSE){
     lapply(to,
     function (x){
