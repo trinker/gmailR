@@ -1,6 +1,6 @@
 email <-
 function(to, password, subject="R message", message="EOM", from=NULL, 
-    attachment=NULL, server="smtp.gmail.com:587", username=UNAME, 
+    attachment=NULL, server="smtp.gmail.com:587", username=NULL, 
     confirmBeforeSend=FALSE, clear.username = FALSE){
     data(UNAME)
     loc <- paste0(find.package("gmailR"), "/data")
