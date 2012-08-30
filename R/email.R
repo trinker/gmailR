@@ -13,6 +13,12 @@ function(to, password, subject="R message", message="EOM", from=NULL,
             force = FALSE)
         save(UNAME, file = paste0(loc, "/UNAME.rda"))
     }     
+    if (exists(".UNAME", envir = .GlobalEnv) & is.null(username) &
+        !exists("UNAME")) {
+        username <- .UNAME
+    } else {
+        username <- UNAME
+    }   
     if (is.null(from)) {
         from <- username
     } 
