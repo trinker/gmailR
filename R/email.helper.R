@@ -1,5 +1,6 @@
 email.helper <-
-function(to, from, subject, username, password, server, confirmBeforeSend){ 
+function(to, from, subject, username, password, server, message, attachment, 
+  confirmBeforeSend){ 
   if (!is.list(to) | !is.list(from)) stop("'to' and 'from' must be lists") 
   if (length(from) > 1) stop("'from' must have length 1") 
   if (length(to) > 1) stop("'send.email' currently only supports one recipient e-mail address") 
