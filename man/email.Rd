@@ -1,11 +1,10 @@
 \name{email}
 \alias{email}
-Send Gmail in R
 \title{
-Enables a user to send an email or text in R.  Useful to alert the user that a simulation is complete.
+Send gmail with Attachments in R
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Enables a user to send an email or text in R.  Useful to alert the user that a simulation is complete.
 }
 \usage{
 email(to, subject = "R message", message = "EOM", attachment = NULL, server = "smtp.gmail.com:587", from = FROM, username = UNAME, password = PWORD, confirmBeforeSend = FALSE)
