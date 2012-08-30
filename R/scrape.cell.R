@@ -1,5 +1,4 @@
-scrape.cell <-
-function() {
+scrape.cell <- function() {
     library(RCurl)
     library(XML)
     url   <- "http://www.emailtextmessages.com/"
@@ -13,6 +12,7 @@ function() {
     a$ext <- as.character(a$ext)
     b <- strsplit(a$ext, "@")
     a$ext <- gsub("^\\s+|\\s+$", "", sapply(b, function(x) x[length(x)]))
+    a <- a[!duplicated(a[, 1:2]), ]
     rownames(a) <- NULL
     return(a)
 }
