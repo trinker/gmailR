@@ -1,5 +1,5 @@
 #gmailR
-
+![gmailicon](https://dl.dropbox.com/u/61803503/gmail.png)  
 A way to send gmail message from R with attachments.
 
 
@@ -18,3 +18,6 @@ install_github("gmailR", "trinker")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+
+## Help 
+For the package pdf help manual [click here](https://dl.dropbox.com/u/61803503/gmailR.pdf).
