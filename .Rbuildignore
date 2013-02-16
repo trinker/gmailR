@@ -1,2 +1,6 @@
 ^\.Rproj\.user$
 ^.*\.Rproj$
+.Rbuildignore
+maintenance.R
+.gitignore
+staticdocs

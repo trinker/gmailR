@@ -1,0 +1,14 @@
+citHeader("To cite gmailR in publications, please use:")
+
+
+citEntry(entry = "manual",
+    title = "{gmailR}: gmail for {R}",
+    author = "Tyler W. Rinker",
+    organization = "University at Buffalo/SUNY",
+    address = "Buffalo, New York",
+    note = "version 0.1.0",
+    year = "2013",
+    textVersion  = paste("Rinker, T. W. (2013).",
+        "gmailR: gmail for R.",
+        "version 0.1.0. University at Buffalo. Buffalo, New York.")
+)

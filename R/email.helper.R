@@ -17,7 +17,6 @@ function(to, from, subject, username, password, server, message, attachment,
   if (!is.null(attachment)) if (!file.exists(attachment)) stop(paste("'", attachment, "' does not exist!", sep="")) 
   if (missing(username)) username <- winDialogString("Please enter your e-mail username", "") 
   if (missing(password)) password <- winDialogString("Please enter your e-mail password", "") 
-  require(rJython) 
   rJython <- rJython() 
   rJython$exec("import smtplib") 
   rJython$exec("import os") 

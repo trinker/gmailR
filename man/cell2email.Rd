@@ -1,28 +1,24 @@
 \name{cell2email}
 \alias{cell2email}
-%- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Convert a Cell Phone Number to an Email Address
+\title{Generate an Email from a Cell Phone Number}
+\usage{
+  cell2email(cell.number, carrier = NULL, omit.old = TRUE)
+}
+\arguments{
+  \item{cell.number}{The 10 digits number of the cell
+  you're trying to send a text to.}
+
+  \item{carrier}{The name of the carrier.  If NULL
+  interactive selection of a carrier is used.}
+
+  \item{omit.old}{logical.  If TRUE removes all the old
+  Canadian carriers from the list.}
 }
 \description{
-Convert a cell number to an email address. 
-}
-\usage{
-cell2email(cell.number, carrier, omit.old = TRUE)
-}
-%- maybe also 'usage' for other objects documented here.
-\arguments{
-  \item{cell.number}{
-10 digit cell phone number
-}
-  \item{carrier}{
-Cell phone carrier
-}
-  \item{omit.old}{
-logical.  Should the old_us_can of the last column of cell.ext data set be used.
-}
+  Generates an email adress based on cell number nad
+  carrier.
 }
 \examples{
-cell2email(5555555555, "Sprint")
-cell2email(5555555555, "seprint")
+cell2email("555-555-5555")
 }
+

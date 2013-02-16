@@ -1,8 +1,16 @@
-scrape.cell <- function() {
-    library(RCurl)
-    library(XML)
-    url   <- "http://www.emailtextmessages.com/"
-    doc   <- htmlTreeParse(url, useInternalNodes=TRUE)
+#' Scrape Cell Phone Extensions
+#' 
+#' Grabs cell phone extensions from http://www.emailtextmessages.com/
+#' 
+#' @param URL The URL of the cell phone extension website to scrape from.
+#' @export
+#' @import RCurl XML
+#' @examples 
+#' \dontrun{
+#' scrape.cell()
+#' }
+scrape.cell <- function(URL = "http://www.emailtextmessages.com/") {
+    doc   <- htmlTreeParse(URL, useInternalNodes=TRUE)
     x     <- sapply(getNodeSet(doc, "//li") [1:217], xmlValue)
     y     <- sapply(getNodeSet(doc, "//h3"), xmlValue)
     z     <- rep(c("us_can", "inter", "old_us_can"), 
