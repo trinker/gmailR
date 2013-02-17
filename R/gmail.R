@@ -45,11 +45,14 @@ function(to, password, subject="R message", message="EOM", from=NULL,
             username <- UNAME
         }   
     }
+    if (is.null(username)) {
+        username <- UNAME
+    }
     if (is.null(from)) {
         from <- username
     } 
     if (!is.null(attachment) && 
-        (length(unlist(strsplit(attachment, "\\", fixed=TRUE))) == 1|
+        (length(unlist(strsplit(attachment, "\\", fixed=TRUE))) == 1 &
         length(unlist(strsplit(attachment, "/", fixed=TRUE))) == 1)) {
         attachment <- paste0(getwd(), "/", attachment)
     }
