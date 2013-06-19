@@ -31,7 +31,7 @@ function(to, from, subject, username, password, server, message, attachment,
   paste("fromaddr = '", from, "'", sep=""), 
   paste("toaddrs  = '", to, "'", sep=""), 
   "msg = MIMEMultipart()", 
-  paste("msg.attach(MIMEText('", message, "'))", sep=""), 
+  paste("msg.attach(MIMEText('", message, "','plain','utf-8'))", sep=""), 
   paste("msg['From'] = email.utils.formataddr(('", names(from), "', fromaddr))", sep=""), 
   paste("msg['To'] = email.utils.formataddr(('", names(to), "', toaddrs))", sep=""), 
   paste("msg['Subject'] = '", subject, "'", sep="")) 
