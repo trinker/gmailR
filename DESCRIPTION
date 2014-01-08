@@ -15,9 +15,3 @@ ByteCompile: yes
 Description: Send emails with attachments via R.
 URL: http://github.com/trinker/gmailR
 License: GPL-2
-Collate:
-    'cell2email.R'
-    'email.helper.R'
-    'gmail.R'
-    'scrape.cell.R'
-    'zzz.R'

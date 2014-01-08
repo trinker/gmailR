@@ -2,10 +2,9 @@
 \alias{gmail}
 \title{Email With Attachments}
 \usage{
-  gmail(to, password, subject = "R message",
-    message = "EOM", from = NULL, attachment = NULL,
-    server = "smtp.gmail.com:587", username = NULL,
-    confirmBeforeSend = FALSE, clear.username = FALSE)
+gmail(to, password, subject = "R message", message = "EOM", from = NULL,
+  attachment = NULL, server = "smtp.gmail.com:587", username = NULL,
+  confirmBeforeSend = FALSE, clear.username = FALSE)
 }
 \arguments{
   \item{to}{The recipient's email address.}
@@ -35,8 +34,8 @@
   username.}
 }
 \description{
-  Send emails (including gmails) with attachments from
-  within R.
+Send emails (including gmails) with attachments from within
+R.
 }
 \examples{
 \dontrun{
@@ -46,9 +45,9 @@ gmail(to=cell2email(5555555555, "sprint"), password = "password")
 }
 }
 \author{
-  Tyler Rinker<tyler.rinker@gmail.com> and Daniel Malter
+Tyler Rinker<tyler.rinker@gmail.com> and Daniel Malter
 }
 \references{
-  \url{http://r.789695.n4.nabble.com/Email-out-of-R-code-td3530671.html}
+\url{http://r.789695.n4.nabble.com/Email-out-of-R-code-td3530671.html}
 }
 

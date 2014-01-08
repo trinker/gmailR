@@ -2,7 +2,7 @@
 \alias{cell2email}
 \title{Generate an Email from a Cell Phone Number}
 \usage{
-  cell2email(cell.number, carrier = NULL, omit.old = TRUE)
+cell2email(cell.number, carrier = NULL, omit.old = TRUE)
 }
 \arguments{
   \item{cell.number}{The 10 digits number of the cell
@@ -15,8 +15,7 @@
   Canadian carriers from the list.}
 }
 \description{
-  Generates an email adress based on cell number nad
-  carrier.
+Generates an email adress based on cell number nad carrier.
 }
 \examples{
 cell2email("555-555-5555")
