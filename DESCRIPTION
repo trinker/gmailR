@@ -11,6 +11,8 @@ Depends:
 Imports:
     rJava,
     rjson,
+    RCurl,
+    XML
 ByteCompile: yes
 Description: Send emails with attachments via R.
 URL: http://github.com/trinker/gmailR
