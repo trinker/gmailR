@@ -16,60 +16,98 @@
 #' @references \url{http://r.789695.n4.nabble.com/Email-out-of-R-code-td3530671.html}
 #' @export
 #' @import rJython rJava rjson
+#' @import txtutils
 #' @examples
 #' \dontrun{
-#' gmail(to=c("bob@@gmail.com", "janr@@hotmail.com"), password = "password", 
+#' gmail(to=c("bob@@gmail.com", "janr@@hotmail.com"), password = "password",
 #'     attachment="path/to/file.pdf")
 #' gmail(to=cell2email(5555555555, "sprint"), password = "password")
 #' }
 gmail <-
-function(to, password, subject="R message", message="EOM", from=NULL, 
-    attachment=NULL, server="smtp.gmail.com:587", username=NULL, 
-    confirmBeforeSend=FALSE, clear.username = FALSE){
-    data(UNAME)
-    cells <- sapply(strsplit(to, "@"), function(x) x[2]) %in% cell.ext[, 2]
-    loc <- paste0(find.package("gmailR"), "/data")
-    if ((is.null(username) & is.na(UNAME) & !exists(".UNAME", 
-        envir = .GlobalEnv)) | clear.username) {
-        cat("\n","Enter gmail Username","\n")
-        UNAME <- scan(n=1,what = character(0), quiet=T)
-        .UNAME <<- UNAME 
-        unlink(paste0(loc, "/UNAME.rda"), recursive = TRUE, 
-            force = FALSE)
-        save(UNAME, file = paste0(loc, "/UNAME.rda"))
-    }     
-    if (exists(".UNAME", envir = .GlobalEnv)) {
-        if (is.null(username)) {
-            username <- .UNAME
-        } else {
-            username <- UNAME
-        }   
-    }
-    if (is.null(username)) {
-        username <- UNAME
-    }
-    if (is.null(from)) {
-        from <- username
-    } 
-    if (!is.null(attachment) && 
-        (length(unlist(strsplit(attachment, "\\", fixed=TRUE))) == 1 &
-        length(unlist(strsplit(attachment, "/", fixed=TRUE))) == 1)) {
-        attachment <- paste0(getwd(), "/", attachment)
-    }
-    atts <- rep(attachment, length(to))
-    atts <- lapply(atts, c)
-    atts[cells] <- FALSE
-    lapply(seq_along(to),
-        function (i){
-            email.helper(to=list(to[i]), 
-                from = list(from),
-                subject = subject,
-                message = message, 
-                attachment = atts[[i]],
-                username = username, 
-                password = password, 
-                server = server, 
-                confirmBeforeSend = confirmBeforeSend)
+    function(to, password, subject="R message", message="EOM", from=NULL,
+             attachment=NULL, server="smtp.gmail.com:587", username=NULL,
+             confirmBeforeSend=FALSE, clear.username = FALSE){
+        cells <- sapply(strsplit(to, "@"), function(x) x[2]) %in% cell.ext[, 2]
+        loc <- paste0(find.package("gmailR"), "/data")
+        if (is.null(from)) {
+            from <- username
         }
-    )
+        
+        #     if (!is.null(attachment) &&
+        #         (length(strsplit(unlist(attachment), "\\", fixed=TRUE))) == 1 &&
+        #         length(strsplit(unlist(attachment), "/", fixed=TRUE)) == 1)) {
+        #         attachment <- paste0(getwd(), "/", attachment)
+        #     }
+        
+        
+        if (is.vector(attachment)) {
+            attachment = list(attachment)
+        }
+        
+        if(!is.null(attachment)) {
+            attachment = lapply(attachment, addPwd)
+        }
+        
+        
+        nRcpt = length(to)
+        nAttach = length(attachment)
+        if(nAttach == 1 && nRcpt > 1) {
+            attachment = rep(attachment, nRcpt)
+        }
+        nAttach = length(attachment)
+        if(nAttach != nRcpt) {
+            stop("Number of attachments not equal to number of recepients!")
+        }
+        
+        atts = attachment
+        atts[cells] <- FALSE
+        lapply(seq_along(to),
+               function (i){
+                   email.helper(to=list(to[i]),
+                                from = list(from),
+                                subject = subject,
+                                message = message,
+                                attachment = atts[[i]],
+                                username = username,
+                                password = password,
+                                server = server,
+                                confirmBeforeSend = confirmBeforeSend)
+               }
+        )
+    }
+
+
+addPwd = function(files = character())  {
+    if(is.list(files)) files = unlist(files)
+    idx = grepl("/", files)
+    idx = which(!idx)
+    if(length(idx) > 0) {
+        debugps("Some files are relative to PWD, need to prepend PWD..")
+        wd = getwd()
+        for(i in idx) {
+            files[i] = file.path(wd, files[i])
+        }
+    }
+    
+    idx = grepl("[*~]", files)
+    idx = which(idx)
+    if(length(idx) > 0) {
+        newFiles = list()
+        debugps("It looks like you used globbing, I will expand them..")
+        for(i in 1:length(files)) {
+            if(i %in% idx) {
+                newItem = Sys.glob(files[i])
+                newFiles[[length(newFiles) + 1]] = newItem
+            }
+            else {
+                newFiles[[length(newFiles) + 1]] = files[i]
+            }
+        }
+        files= unlist(newFiles)
+    }
+    files
 }
+
+# require(txtutils)
+# files = c("/tmp/*.txt", "~/Downloads/PhD-dag 2014_programme_PhD Day_def.pdf", "/Users/kaiyin/.autoGmailrc", "tmp.txt")
+# addPwd(files)
