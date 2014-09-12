@@ -4,7 +4,7 @@
 #' 
 #' @param URL The URL of the cell phone extension website to scrape from.
 #' @export
-#' @import RCurl XML
+#' @import XML
 #' @examples 
 #' \dontrun{
 #' scrape.cell()
