@@ -32,23 +32,23 @@ gmail <-
         if (is.null(from)) {
             from <- username
         }
-        
+
         #     if (!is.null(attachment) &&
         #         (length(strsplit(unlist(attachment), "\\", fixed=TRUE))) == 1 &&
         #         length(strsplit(unlist(attachment), "/", fixed=TRUE)) == 1)) {
         #         attachment <- paste0(getwd(), "/", attachment)
         #     }
-        
-        
+
+
         if (is.vector(attachment)) {
             attachment = list(attachment)
         }
-        
+
         if(!is.null(attachment)) {
             attachment = lapply(attachment, addPwd)
         }
-        
-        
+
+
         nRcpt = length(to)
         nAttach = length(attachment)
         if(nAttach == 1 && nRcpt > 1) {
@@ -58,7 +58,7 @@ gmail <-
         if(nAttach != nRcpt) {
             stop("Number of attachments not equal to number of recepients!")
         }
-        
+
         atts = attachment
         atts[cells] <- FALSE
         lapply(seq_along(to),
@@ -82,18 +82,18 @@ addPwd = function(files = character())  {
     idx = grepl("/", files)
     idx = which(!idx)
     if(length(idx) > 0) {
-        debugps("Some files are relative to PWD, need to prepend PWD..")
+        message("Some files are relative to PWD, need to prepend PWD..")
         wd = getwd()
         for(i in idx) {
             files[i] = file.path(wd, files[i])
         }
     }
-    
+
     idx = grepl("[*~]", files)
     idx = which(idx)
     if(length(idx) > 0) {
         newFiles = list()
-        debugps("It looks like you used globbing, I will expand them..")
+        message("It looks like you used globbing, I will expand them..")
         for(i in 1:length(files)) {
             if(i %in% idx) {
                 newItem = Sys.glob(files[i])
